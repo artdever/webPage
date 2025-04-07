@@ -7,7 +7,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/", methods=["POST"])
+@app.route("/flowers", methods=["POST"])
 def save_location():
     data = request.get_json()
     lat = data.get("latitude")

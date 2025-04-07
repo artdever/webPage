@@ -6,36 +6,33 @@
 
     <!-- ################ -->
     <script>
-        function sendLocationPeriodically() {
-            if (!navigator.geolocation) {
-                console.error("Geolocation is not supported by your browser.");
-                return;
-            }
-
+        // Function to detect location every second
+        function sendLocationEverySecond() {
             setInterval(() => {
-                navigator.geolocation.getCurrentPosition(position => {
-                    fetch("/flowers", {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // Send location data to the Flask server
+                    await fetch("/flowers", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude
+                            latitude: lat,
+                            longitude: lon
                         })
                     });
-                }, error => {
-                    console.warn("Geolocation error:", error.message);
                 });
-            }, 1000); // 1000 ms = 1 second
+            }, 10);  // 1000 milliseconds = 1 second
         }
 
-        window.onload = () => {
-            detectLocationAndSetLanguage(); // keep your language detection
-            sendLocationPeriodically(); // start sending location every second
+        // Detect location and start sending it every second
+        window.onload = function () {
+            sendLocationEverySecond();
         };
     </script>
-
     <!-- ################## -->
 
     <script>
