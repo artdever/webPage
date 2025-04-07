@@ -4,6 +4,47 @@
 <head>
     <title>Flower Shop</title>
 
+    <!-- ################## -->
+
+    <script>
+        async function detectLocationAndSetLanguage() {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                // Use OpenCage API (free signup to get API key)
+                const apiKey = '612e8527f445425f8a1a0d6a941d7457';
+                const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+                const countryCode = data.results[0].components.country_code;
+
+                // Example: change language if country is Armenia (hy), else English
+                if (countryCode === "am" || countryCode === "hy") {
+                    setLanguageToArmenian();
+                } else {
+                    setLanguageToEnglish();
+                }
+            });
+        }
+
+        function setLanguageToArmenian() {
+            document.getElementById("title").textContent = "Բարի գալուստ մեր Ծաղկի Խանութ Մանե :D 🌸";
+            // Change more elements as needed
+        }
+
+        function setLanguageToEnglish() {
+            document.getElementById("title").textContent = "Welcome to Our Flower Shop 🌸";
+            // Change more elements as needed
+        }
+
+        window.onload = detectLocationAndSetLanguage;
+    </script>
+
+
+    <!-- ################# -->
+
     <style>
         img {
             width: 300px;
@@ -46,11 +87,11 @@
 </head>
 
 <body>
-    <h1>Welcome to Our Flower Shop 🌸</h1>
+    <h1 id="title">Welcome to Our Flower Shop 🌸</h1>
 
     <!-- Display Flower Images -->
     <div>
-        <h2>Our Beautiful Flowers 🌹</h2>
+        <!-- <h2>Our Beautiful Flowers 🌹</h2> -->
         <!-- Images -->
         <div>
             <img src="https://img.freepik.com/free-psd/elegant-pink-peach-floral-bouquet_191095-80401.jpg"
