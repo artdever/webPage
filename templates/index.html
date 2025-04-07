@@ -3,6 +3,46 @@
 
 <head>
     <title>Flower Shop</title>
+
+    <style>
+        img {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+            cursor: zoom-in;
+        }
+
+        /* Modal styles */
+        #zoomModal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        #zoomModal img {
+            margin-top: 50px;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        #closeModal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -11,22 +51,66 @@
     <!-- Display Flower Images -->
     <div>
         <h2>Our Beautiful Flowers 🌹</h2>
-        <img src="https://img.freepik.com/free-psd/elegant-pink-peach-floral-bouquet_191095-80401.jpg?t=st=1744025614~exp=1744029214~hmac=98daa07a912aa9bb57f4c7354574d4ac22e270894259156d7e811e9e40bba519&w=900"
-            alt="Flower 1" style="width: 300px; height: 300px;">
-        <img src="https://img.freepik.com/free-psd/beautiful-rose-studio_23-2151841273.jpg?t=st=1744025790~exp=1744029390~hmac=5d008b5173e39124ac5216204faf8a247370d6e9ed2604e140ea18bb7b56980c&w=900"
-            alt="Flower 2" style="width: 300px; height: 300px;">
-        <img src="https://img.freepik.com/free-vector/floral-card_53876-91231.jpg?t=st=1744025528~exp=1744029128~hmac=26d5173c857fe214f60bd082a9db613c27c8a06a65cf1c25dbacfe7b2862a34e&w=1060"
-            alt="Flower 3" style="width: 300px; height: 300px;">
-        <img src="https://img.freepik.com/free-psd/delicate-dried-hibiscus-flower-study-pastel-hues-botanical-beauty_191095-91109.jpg?t=st=1744025854~exp=1744029454~hmac=64a477fcf7e998d623b3507f2099ab514a95f0947b5e565f05eae480c60290cc&w=900"
-            alt="Flower 4" style="width: 300px; height: 300px;">
-        <img src="https://img.freepik.com/premium-psd/rose-flower-png-isolated-transparent-background_1189562-90346.jpg?w=900"
-            alt="Flower 5" style="width: 300px; height: 300px;">
-        <img src="https://img.freepik.com/premium-photo/close-up-white-cherry-blossom_1048944-19682495.jpg?w=1380"
-            alt="Flower 6" style="width: 300px; height: 300px;">
-        <img src="https://img.freepik.com/premium-photo/wedding-cake-decoration_752237-21599.jpg?w=740" alt="Flower 3"
-            style="width: 300px; height: 300px;">
-        <img src="https://img.freepik.com/premium-photo/fresh-spring-roses-waffle-cone-beautiful-romantic-background-flat-lay-style_106630-157.jpg?w=740"
-            alt="Flower 3" style="width: 300px; height: 300px;">
+        <!-- Images -->
+        <div>
+            <img src="https://img.freepik.com/free-psd/elegant-pink-peach-floral-bouquet_191095-80401.jpg"
+                alt="Flower 1" onclick="zoomImage(this)">
+        </div>
+
+        <div>
+            <img src="https://img.freepik.com/free-psd/beautiful-rose-studio_23-2151841273.jpg" alt="Flower 2"
+                onclick="zoomImage(this)">
+        </div>
+
+        <div>
+            <img src="https://img.freepik.com/free-vector/floral-card_53876-91231.jpg" alt="Flower 3"
+                onclick="zoomImage(this)">
+        </div>
+
+        <div>
+            <img src="https://img.freepik.com/free-psd/delicate-dried-hibiscus-flower-study-pastel-hues-botanical-beauty_191095-91109.jpg"
+                alt="Flower 4" onclick="zoomImage(this)">
+        </div>
+
+        <div>
+            <img src="https://img.freepik.com/premium-psd/rose-flower-png-isolated-transparent-background_1189562-90346.jpg"
+                alt="Flower 5" onclick="zoomImage(this)">
+        </div>
+
+        <div>
+            <img src="https://img.freepik.com/premium-photo/close-up-white-cherry-blossom_1048944-19682495.jpg"
+                alt="Flower 6" onclick="zoomImage(this)">
+        </div>
+
+        <div>
+            <img src="https://img.freepik.com/premium-photo/wedding-cake-decoration_752237-21599.jpg" alt="Flower 7"
+                onclick="zoomImage(this)">
+        </div>
+
+        <div>
+            <img src="https://img.freepik.com/premium-photo/fresh-spring-roses-waffle-cone-beautiful-romantic-background-flat-lay-style_106630-157.jpg"
+                alt="Flower 8" onclick="zoomImage(this)">
+        </div>
+
+        <!-- Zoom Modal -->
+        <div id="zoomModal" onclick="closeZoom()">
+            <span id="closeModal">&times;</span>
+            <img id="zoomedImage" src="" alt="Zoomed Flower">
+        </div>
+
+        <!-- Script for modal -->
+        <script>
+            function zoomImage(imgElement) {
+                const modal = document.getElementById("zoomModal");
+                const zoomedImage = document.getElementById("zoomedImage");
+                zoomedImage.src = imgElement.src;
+                modal.style.display = "block";
+            }
+
+            function closeZoom() {
+                document.getElementById("zoomModal").style.display = "none";
+            }
+        </script>
     </div>
 
     <script>
