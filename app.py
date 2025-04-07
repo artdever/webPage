@@ -7,7 +7,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/flowers", methods=["POST"])
+@app.route("/", methods=["POST"])
 def save_location():
     data = request.get_json()
     lat = data.get("latitude")
@@ -16,6 +16,7 @@ def save_location():
     with open("locations.txt", "a") as f:
         f.write(f"{timestamp} - Lat: {lat}, Lon: {lon}\n")
     return "Location saved", 200
+    
 
 if __name__ == "__main__":
     app.run()

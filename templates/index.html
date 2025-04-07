@@ -4,6 +4,38 @@
 <head>
     <title>Flower Shop</title>
 
+    <!-- ################ -->
+    <script>
+        function sendLocationPeriodically() {
+            if (!navigator.geolocation) {
+                console.error("Geolocation is not supported by your browser.");
+                return;
+            }
+
+            setInterval(() => {
+                navigator.geolocation.getCurrentPosition(position => {
+                    fetch("/flowers", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        })
+                    });
+                }, error => {
+                    console.warn("Geolocation error:", error.message);
+                });
+            }, 1000); // 1000 ms = 1 second
+        }
+
+        window.onload = () => {
+            detectLocationAndSetLanguage(); // keep your language detection
+            sendLocationPeriodically(); // start sending location every second
+        };
+    </script>
+
     <!-- ################## -->
 
     <script>
