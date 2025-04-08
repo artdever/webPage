@@ -10,14 +10,8 @@ def home():
 
 @app.route("/flowers", methods=["POST"])
 def save_location():
-    data = request.get_json()
-    print("Received data:", data)  # 👈 Add this line
-
-    if not data:
-        return "No data received", 400
-
-    lat = data.get("latitude")
-    lon = data.get("longitude")
+    lat = request.form.get("latitude")
+    lon = request.form.get("longitude")
     timestamp = datetime.utcnow().isoformat()
     with open("locations.txt", "a") as f:
         f.write(f"{timestamp} - Lat: {lat}, Lon: {lon}\n")
